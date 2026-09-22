@@ -47,7 +47,9 @@ export const getRooms = async (req, res) => {
           select: 'image',
         },
       }).sort({ createdAt: -1 });
-    res.json({ success: true, rooms });
+
+    const validRooms = rooms.filter((room) => room.hotel);
+    res.json({ success: true, rooms: validRooms });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
@@ -58,11 +60,13 @@ export const getRooms = async (req, res) => {
 export const getOwnerRooms = async (req, res) => {
   try {
     const hotelData = await Hotel.findOne({ owner: req.auth.userId });
-    const rooms = await Room.find({ hotel: hotelData._id.toString() }).populate("hotel");
+    if (!hotelData) {
+      return res.json({ success: true, rooms: [] });
+    }
+    const rooms = await Room.find({ hotel: hotelData._id }).populate("hotel");
     res.json({ success: true, rooms });
   } catch (error) {
     console.log(error);
-    
     res.json({ success: false, message: error.message });
   }
 };

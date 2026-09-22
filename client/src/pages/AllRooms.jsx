@@ -139,15 +139,15 @@ const AllRooms = () => {
                         {/* Room Image */}
                         <img title='View Room Details' onClick={() => { navigate(`/rooms/${room._id}`); scrollTo(0, 0) }} src={room.images[0]} alt="hotel-img" className='max-h-65 md:w-1/2 rounded-xl shadow-lg object-cover cursor-pointer' />
                         <div className='md:w-1/2 flex flex-col gap-2'>
-                            <p className='text-gray-500'>{room.hotel.city}</p>
-                            <p onClick={() => { navigate(`/rooms/${room._id}`); scrollTo(0, 0) }} className='text-gray-800 text-3xl font-playfair cursor-pointer' title='View Room Details'>{room.hotel.name}</p>
+                            <p className='text-gray-500'>{room.hotel?.city || ''}</p>
+                            <p onClick={() => { navigate(`/rooms/${room._id}`); scrollTo(0, 0) }} className='text-gray-800 text-3xl font-playfair cursor-pointer' title='View Room Details'>{room.hotel?.name || 'Hotel'}</p>
                             <div className='flex items-center'>
                                 <StarRating />
                                 <p className='ml-2'>200+ reviews</p>
                             </div>
                             <div className='flex items-center gap-1 text-gray-500 mt-2 text-sm'>
                                 <img src={assets.locationIcon} alt="location-icon" />
-                                <span>{room.hotel.address}</span>
+                                <span>{room.hotel?.address || room.hotel?.city || ''}</span>
                             </div>
                             {/* Room Amenities */}
                             <div className='flex flex-wrap items-center mt-3 mb-6 gap-4'>

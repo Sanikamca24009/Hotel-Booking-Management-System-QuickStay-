@@ -76,7 +76,7 @@ const RoomDetails = () => {
 
             {/* Room Details */}
             <div className='flex flex-col md:flex-row items-start md:items-center gap-2'>
-                <h1 className='text-3xl md:text-4xl font-playfair'>{room.hotel.name} <span className='font-inter text-sm'>({room.roomType})</span></h1>
+                <h1 className='text-3xl md:text-4xl font-playfair'>{room.hotel?.name || 'Hotel'} <span className='font-inter text-sm'>({room.roomType})</span></h1>
                 <p className='text-xs font-inter py-1.5 px-3 text-white bg-orange-500 rounded-full'>20% OFF</p>
             </div>
             <div className='flex items-center gap-1 mt-2'>
@@ -85,7 +85,7 @@ const RoomDetails = () => {
             </div>
             <div className='flex items-center gap-1 text-gray-500 mt-2'>
                 <img src={assets.locationIcon} alt='location-icon' />
-                <span>{room.hotel.address}</span>
+                <span>{room.hotel?.address || room.hotel?.city || ''}</span>
             </div>
 
             {/* Room Images */}
@@ -160,9 +160,9 @@ const RoomDetails = () => {
 
             <div className='flex flex-col items-start gap-4'>
                 <div className='flex gap-4'>
-                    <img className='h-14 w-14 md:h-18 md:w-18 rounded-full' src={room.hotel.owner.image} alt='Host' />
+                    <img className='h-14 w-14 md:h-18 md:w-18 rounded-full' src={room.hotel?.owner?.image || assets.userIcon} alt='Host' />
                     <div>
-                        <p className='text-lg md:text-xl'>Hosted by {room.hotel.name}</p>
+                        <p className='text-lg md:text-xl'>Hosted by {room.hotel?.name || 'Hotel'}</p>
                         <div className='flex items-center mt-1'>
                             <StarRating />
                             <p className='ml-2'>200+ reviews</p>
